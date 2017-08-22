@@ -18,11 +18,11 @@
     </c:if>
     <form method="POST" action="/login">
         <p>
-            <label for="username">Email</label>
+            <label for="username">Email:</label>
             <input type="text" id="username" name="username"/>
         </p>
         <p>
-            <label for="password">Password</label>
+            <label for="password">Password:</label>
             <input type="password" id="password" name="password"/>
         </p>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -35,10 +35,6 @@
     
     <form:form method="POST" action="/registration" modelAttribute="user">
         <p>
-            <form:label path="username">Email:</form:label>
-            <form:input path="username"/>
-        </p>
-        <p>
             <form:label path="firstName">First Name:</form:label>
             <form:input path="firstName"/>
         </p>
@@ -46,6 +42,15 @@
             <form:label path="lastName">Last Name:</form:label>
             <form:input path="lastName"/>
         </p>
+        <p>
+            <form:label path="username">Email:</form:label>
+            <form:input path="username"/>
+        </p>
+        <p>
+        		<form:label path="location">Location:</form:label>
+			<form:input path="location"/>
+        		<form:select  path="state" items="${states}"/>
+	    </p>
         <p>
             <form:label path="password">Password:</form:label>
             <form:password path="password"/>

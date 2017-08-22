@@ -11,28 +11,47 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
+    // email
     @Size(min=3)
     private String username;
-    @Size(min=5)
+    
+    @Size(min=5, message="Your password has to be 5 characters")
     private String password;
-    @Size(min=1)
+    @Size(min=1, message="Your first name has to be 2 characters")
     private String firstName;
-    @Size(min=1)
+    @Size(min=1, message="Your last name has to be 2 characters")
     private String lastName;
+    private String location;
+    private String state; 
     @Transient
     private String passwordConfirmation;
     private Date createdAt;
     private Date updatedAt;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "users_roles", 
+        name = "users_events", 
         joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+        inverseJoinColumns = @JoinColumn(name = "event_id")
+    )
+    private List<Event> events;
+    @OneToMany(mappedBy="host", fetch = FetchType.LAZY)
+    private List<Event> eventHosted;
     
-    public User() {
-    }
+    
+    public List<Event> getEventHosted() {
+		return eventHosted;
+	}
 
+	public void setEventHosted(List<Event> eventHosted) {
+		this.eventHosted = eventHosted;
+	}
+
+	public User() {
+    }
+    
+	public List<Event> getEvents() {
+		return events;
+	}
     public Long getId() {
         return id;
     }
@@ -97,15 +116,33 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
     
-    @PrePersist
+    public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+
+	
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	@PrePersist
     protected void onCreate(){
     this.setCreatedAt(new Date());
     }
@@ -114,4 +151,6 @@ public class User {
     protected void onUpdate(){
     this.setUpdatedAt(new Date());
     }
+
+
 }
