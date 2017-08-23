@@ -72,8 +72,9 @@ tr:nth-child(even) {
 	<div class="message" >
 		<h3>Message Wall</h3>
 		<div>
-			<c:forEach var="msg" items="${messages}">
-				<p>${message.name } say: {message.message}</p>
+	
+			<c:forEach var="msg" items="${event.messages}">
+				<p>${msg.name } say: ${msg.msg}</p>
 			</c:forEach>
 		</div>
 		<form:form method="POST" action="/message" modelAttribute="message">

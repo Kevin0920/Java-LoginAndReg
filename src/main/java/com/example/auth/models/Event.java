@@ -22,7 +22,8 @@ public class Event {
 	@OneToMany(mappedBy="event", fetch = FetchType.LAZY)
 	private List<Message> messages;
 	
-	private List<Message> getMessages() {
+	// set public, so can get this message
+	public List<Message> getMessages() {
 		return messages;
 	}
 	
